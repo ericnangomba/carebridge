@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CareBridge — Multilingual Patient Intake</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0f766e" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>CareBridge</h1>
+    <p class="subtitle">Multilingual patient intake for low-connectivity clinics</p>
+    <div class="status-bar">
+      <span id="ai-status" class="status-pill">Checking AI…</span>
+      <span id="platform-status" class="status-pill">Web</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- Patient View -->
+    <section id="patient-view" class="view active">
+      <h2>Patient Intake</h2>
+      <div class="card">
+        <label for="language-select">Speak in:</label>
+        <select id="language-select">
+          <option value="zu">isiZulu</option>
+          <option value="xh">isiXhosa</option>
+          <option value="af">Afrikaans</option>
+          <option value="st">Sesotho</option>
+          <option value="tn">Setswana</option>
+          <option value="en" selected>English</option>
+        </select>
+      </div>
+
+      <div class="card recorder-card">
+        <button id="record-btn" class="btn primary large">🎤 Start Speaking</button>
+        <p id="recording-status" class="muted">Tap to record symptoms</p>
+        <div id="transcript-box" class="transcript" aria-live="polite"></div>
+      </div>
+
+      <div class="card">
+        <h3>On-Device Processing</h3>
+        <p class="muted">Medical data stays on this device (Gemini Nano via Firebase AI Logic).</p>
+        <div id="processing-log" class="log"></div>
+      </div>
+
+      <div id="intake-form-card" class="card hidden">
+        <h3>Structured Intake Form</h3>
+        <div id="intake-form"></div>
+        <button id="submit-intake-btn" class="btn primary">Submit to Clinician</button>
+      </div>
+    </section>
+
+    <!-- Clinician View -->
+    <section id="clinician-view" class="view">
+      <h2>Clinician Dashboard</h2>
+      <div class="card">
+        <h3>Patient Intakes</h3>
+        <div id="intake-list" class="intake-list"></div>
+      </div>
+      <div class="card">
+        <button id="triage-btn" class="btn primary">Run Cloud Triage (Gemini)</button>
+        <div id="triage-result" class="triage-result"></div>
+      </div>
+      <div class="card">
+        <button id="pattern-btn" class="btn secondary">Cross-Patient Pattern Analysis</button>
+        <div id="pattern-result" class="pattern-result"></div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button data-view="patient-view" class="nav-btn active">Patient</button>
+    <button data-view="clinician-view" class="nav-btn">Clinician</button>
+  </nav>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
